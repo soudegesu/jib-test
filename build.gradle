@@ -36,10 +36,10 @@ jib {
         image = ''
     }
     container {
-        jvmFlags = ['-Xms512m', '-Xdebug', '-Xmy:flag=jib-rules']
+        jvmFlags = ['-Xms512m', '-Xms1g', '-Xmx1g', '-Xss10m', '-XX:MaxMetaspaceSize=1g']
         mainClass = 'com.soudegesu.example.MainApplication'
-        args = ['some', 'args']
-        ports = ['1000', '2000-2003/udp']
+        args = []
+        ports = ['8080']
         format = 'OCI'
     }
 }
