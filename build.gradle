@@ -17,6 +17,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.google.cloud.tools.jib'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -24,6 +25,23 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+
+jib {
+    from {
+        image = 'openjdk:alpine'
+    }
+    to {
+        image = ''
+    }
+    container {
+        jvmFlags = ['-Xms512m', '-Xms1g', '-Xmx1g', '-Xss10m', '-XX:MaxMetaspaceSize=1g']
+        mainClass = 'com.soudegesu.example.MainApplication'
+        args = []
+        ports = ['8080']
+        format = 'OCI'
+    }
 }
 
 ext {
