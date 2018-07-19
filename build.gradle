@@ -27,13 +27,13 @@ repositories {
     mavenCentral()
 }
 
-
 jib {
     from {
         image = 'openjdk:alpine'
     }
     to {
-        image = ''
+        image = getProperty('aws.accountid') + ".dkr.ecr." + getProperty('aws.region') + ".amazonaws.com/jib-test"
+        credHelper = 'ecr-login'
     }
     container {
         jvmFlags = ['-Xms512m', '-Xms1g', '-Xmx1g', '-Xss10m', '-XX:MaxMetaspaceSize=1g']
