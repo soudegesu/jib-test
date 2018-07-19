@@ -5,19 +5,22 @@ jib-test is a practice repository for [jib](https://github.com/GoogleContainerTo
 This repo requires
 * Java 1.8 or more
 * Gradle 4.8.1 or more
+* [amazon-ecr-credential-helper](https://github.com/awslabs/amazon-ecr-credential-helper)
 
 ## Quickstart
+
+### Build docker image
 
 * Build docker image using jib
 
 ```bash
-./gradlew jibDockerBuild
+./gradlew jibDockerBuild -Paws.accountid=${aws_account_id} -Paws.region=${aws_region}
 ```
 
 * Run docker image
 
 ```bash
-docker run -p 8080:8080 -d ${image id}
+docker run -p 8080:8080 -d ${image_id}
 ```
 
 * request to container application
@@ -41,4 +44,10 @@ curl -v -H 'Content-Type: application/json' 'http://localhost:8080/user?name=hog
 <
 * Connection #0 to host localhost left intact
 {"name":"hoge"}%
+```
+
+### Build and push docker image to AWS ECR
+
+```bash
+./gradlew jib -Paws.accountid=${aws_account_id} -Paws.region=${aws_region}
 ```
